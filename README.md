@@ -1,120 +1,126 @@
-# 🚀 Terragrunt EC2 Sandbox Setup
+# 🚀 Terragrunt EC2 Sandbox
 
-This project provides a fully automated **temporary sandbox environment** on AWS EC2 using **Terragrunt**. The instance is pre-configured with:
-
-* Node.js (via nvm)
-* Python 3.11 + poetry (via pyenv)
-* Golang 1.21 (via gvm)
-* Git, Curl, Docker ready
-
-Built for secure, isolated, disposable test runs (e.g., executing unknown scripts, interview questions, experiments).
+A fully automated, secure, and disposable sandbox environment on AWS EC2 for testing, coding interviews, and script evaluation. This project provisions a temporary EC2 instance pre-configured with modern developer tools.
 
 ---
 
-## 📦 Project Structure
+## 🧰 Pre-installed Tools
+
+| Tool     | Version        | Install Method |
+| -------- | -------------- | -------------- |
+| Node.js  | Latest LTS     | via nvm        |
+| Python   | 3.11.7         | via pyenv      |
+| Poetry   | Latest         | via script     |
+| Golang   | 1.21.5         | via gvm        |
+| Git/Curl | System Default | Amazon Linux   |
+
+---
+
+## 📁 Project Structure
 
 ```
-terragrunt-sandbox/
-├── terragrunt.hcl
-├── create-keypair.sh
-├── connect.sh
+terragrunt-ec2-sandbox/
+├── .env.example             # Template for environment variables
+├── Makefile                 # Helper commands
+├── create-keypair.sh        # Generate SSH key and public key
+├── connect.sh               # Auto SSH login
+├── terragrunt.hcl           # Root Terragrunt config
 └── modules/
     └── ec2-sandbox/
         ├── main.tf
-        ├── variables.tf
         ├── outputs.tf
-        └── userdata.sh
+        ├── userdata.sh
+        └── variables.tf
 ```
 
 ---
 
-## ⚙️ Prerequisites
+## 🛠️ Setup Instructions
 
-* AWS CLI configured (`aws configure`)
-* Terraform & Terragrunt installed
-* Your AWS account and VPC ID ready
-
----
-
-## 🚀 Quick Start
-
-### 1. Generate SSH key pair
+### 1️⃣ Clone the Project
 
 ```bash
-bash create-keypair.sh
+git clone https://github.com/yourname/terragrunt-ec2-sandbox.git
+cd terragrunt-ec2-sandbox
 ```
 
-This creates:
-
-* `sandbox-key` (private key)
-* `modules/ec2-sandbox/sandbox-key.pem.pub` (public key for AWS)
-
-### 2. Initialize Terragrunt
+### 2️⃣ Prepare Environment Variables
 
 ```bash
-cd terragrunt-sandbox
-terragrunt init
+cp .env.example .env
 ```
 
-### 3. Deploy Sandbox EC2
+Edit `.env` and fill in:
+
+* `AWS_REGION`
+* `VPC_ID`
+* `MY_IP`
+
+### 3️⃣ Generate SSH Key Pair
 
 ```bash
-terragrunt apply
+make key
 ```
 
-Follow prompts to create resources.
+Generates:
 
-### 4. Connect to EC2 Instance
+* `sandbox-key`: your private key
+* `sandbox-key.pem.pub`: public key used in AWS EC2 key pair
+
+### 4️⃣ Launch EC2 Sandbox
 
 ```bash
-./connect.sh
+make up
 ```
 
-Auto-fetches public IP and SSH into the instance.
+This runs Terragrunt to create the EC2 instance and security group.
 
-### 5. Destroy Sandbox
+### 5️⃣ Connect to Instance
 
 ```bash
-terragrunt destroy
+make ssh
 ```
 
-Cleans up everything!
+Automatically connects using the generated private key.
+
+### 6️⃣ Destroy the Instance
+
+```bash
+make destroy
+```
+
+Cleans up all infrastructure.
 
 ---
 
-## 📚 What is installed inside the EC2?
+## 🔐 Security Notes
 
-| Tool              | Version        | Notes               |
-| ----------------- | -------------- | ------------------- |
-| Node.js           | Latest LTS     | via nvm             |
-| Python            | 3.11.7         | via pyenv           |
-| Poetry            | Latest         | for Python projects |
-| Golang            | 1.21.5         | via gvm             |
-| Git, Curl, Docker | System default | Ready to use        |
-
-All preloaded via cloud-init (userdata.sh).
+* SSH access is restricted to your public IP
+* Private key is **not stored or uploaded** to the cloud
+* Instances are disposable by design
 
 ---
 
-## 🛡️ Security Notes
+## 🧪 Use Cases
 
-* Only your IP is allowed to SSH via security group.
-* Private key (`sandbox-key`) must be stored securely (not in Git).
-* Sandbox instance is **stateless**; all changes are ephemeral.
-
----
-
-## 📦 Potential Extensions
-
-* Add cloudwatch logging
-* Use spot instances for cheaper cost
-* Integrate with SSM Session Manager (no SSH key needed)
+* Secure execution of untrusted scripts
+* Coding interview sandbox
+* Environment bootstrap testing
+* Quick ephemeral dev VM
 
 ---
 
-## 👨‍💻 Author
+## 📦 Future Enhancements
 
-* Designed by Ning Zhang
-* Assisted by ChatGPT (prompt engineering)
+* Support for spot instances
+* Instance Connect (no SSH key)
+* GUI (Web UI to manage and launch)
 
-> "Build safe, clean, disposable environments for better security and productivity!" 🚀
+---
+
+## 👨‍💻 Maintainer
+
+* Ning Zhang (张宁)
+* With ChatGPT technical assistant
+
+> “Use disposable infrastructure. Trust nothing. Test everything.”
