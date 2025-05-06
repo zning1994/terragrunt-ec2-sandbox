@@ -66,6 +66,30 @@ eval "$(pyenv virtualenv-init -)"
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 EOPROF
 
+if [ -z "$CODE_SERVER_PASSWORD" ]; then
+  CODE_SERVER_PASSWORD="changeme"
+fi
+curl -fsSL https://code-server.dev/install.sh | sh
+cat >/etc/systemd/system/code-server.service <<EOF2
+[Unit]
+Description=code-server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Environment=PASSWORD=$CODE_SERVER_PASSWORD
+ExecStart=/usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --disable-telemetry --disable-update-check
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF2
+systemctl daemon-reload
+systemctl enable code-server
+systemctl restart code-server
+
+
 echo "✅ Sandbox 初始化完成"
 EOF
 
