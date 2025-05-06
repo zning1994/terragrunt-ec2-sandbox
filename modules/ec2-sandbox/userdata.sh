@@ -5,6 +5,8 @@ cat <<'EOF' > /root/sandbox-init.sh
 #!/bin/bash
 # set -eux
 
+start=$(date +%s)
+
 mkdir ~/Codes
 echo "📦 正在更新系统..."
 yum update -y
@@ -98,6 +100,13 @@ META() {
     http://169.254.169.254/latest/meta-data/$1
 }
 
+end=$(date +%s)
+duration=$((end - start))
+minutes=$((duration / 60))
+seconds=$((duration % 60))
+echo "Userdata script duration: ${minutes} min ${seconds} sec"
+echo "Userdata executed at: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+
 echo "✅ Sandbox 初始化完成, 实例详细信息如下：
 Instance ID:       $(META instance-id)
 Private IP:        $(META local-ipv4)
@@ -106,6 +115,7 @@ Region:            $(META placement/region)
 Availability Zone: $(META placement/availability-zone)
 Instance Type:     $(META instance-type)
 请通过 http://$(META public-ipv4):8080/?folder=/root/Codes 访问 code-server"
+
 EOF
 
 chmod +x /root/sandbox-init.sh
