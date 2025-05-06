@@ -146,24 +146,24 @@ Cleans up all infrastructure.
 
 ---
 
-## 🌏 Common AWS Regions - Latest Amazon Linux 2023 ECS-HVM AMIs
+## 🌏 Common AWS Regions - Latest Amazon Linux 2023 AMIs
 
-Below are the latest Amazon Linux 2023 **ecs-hvm** AMIs (as of 2025-05-07) for common AWS regions, for EC2 launch reference:
+Below are the latest standard Amazon Linux 2023 AMIs (`al2023-ami-2023.7.20250428.1`) as of 2025-05-07 for common AWS regions, for EC2 launch reference:
 
-| Region        | Region Code     | Arch   | AMI ID                | Name                                                         | Creation Date |
-|--------------|----------------|--------|-----------------------|--------------------------------------------------------------|---------------|
-| Stockholm    | eu-north-1     | x86_64 | ami-01996b583d78e1e02 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-x86_64         | 2025-04-30    |
-| Stockholm    | eu-north-1     | arm64  | ami-01598e029f70d422a | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-arm64          | 2025-04-30    |
-| Tokyo        | ap-northeast-1 | x86_64 | ami-01f61ae3169ebca42 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-x86_64         | 2025-04-30    |
-| Tokyo        | ap-northeast-1 | arm64  | ami-06d88755d71f53a57 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-arm64          | 2025-04-30    |
-| Singapore    | ap-southeast-1 | x86_64 | ami-01a03878059167cb6 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-x86_64         | 2025-04-30    |
-| Singapore    | ap-southeast-1 | arm64  | ami-0d47fa2c431cf6d45 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-arm64          | 2025-04-30    |
-| US East      | us-east-1      | x86_64 | ami-01b56a55bb90b31ac | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-x86_64         | 2025-04-30    |
-| US East      | us-east-1      | arm64  | ami-0d33842a33bae4fd3 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-arm64          | 2025-04-30    |
-| US West      | us-west-1      | x86_64 | ami-0539259477458dc86 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-x86_64         | 2025-04-30    |
-| US West      | us-west-1      | arm64  | ami-0be08d3f7f9fcadb0 | al2023-ami-ecs-hvm-2023.0.20250430-kernel-6.1-arm64          | 2025-04-30    |
+| Region        | Region Code     | Arch   | AMI ID                | Name                                                        | Creation Date |
+|--------------|----------------|--------|-----------------------|-------------------------------------------------------------|---------------|
+| Stockholm    | eu-north-1     | x86_64 | ami-0dd574ef87b79ac6c | al2023-ami-2023.7.20250428.1-kernel-6.1-x86_64              | 2025-04-30    |
+| Stockholm    | eu-north-1     | arm64  | ami-0a4d955859f96dc31 | al2023-ami-2023.7.20250428.1-kernel-6.1-arm64               | 2025-04-30    |
+| Tokyo        | ap-northeast-1 | x86_64 | ami-0c2da9ee6644f16e5 | al2023-ami-2023.7.20250428.1-kernel-6.1-x86_64              | 2025-04-30    |
+| Tokyo        | ap-northeast-1 | arm64  | ami-0c161c56d8bda712f | al2023-ami-2023.7.20250428.1-kernel-6.1-arm64               | 2025-04-30    |
+| Singapore    | ap-southeast-1 | x86_64 | ami-0e8ebb0ab254bb563 | al2023-ami-2023.7.20250428.1-kernel-6.1-x86_64              | 2025-04-30    |
+| Singapore    | ap-southeast-1 | arm64  | ami-05928b89ce5ea0cf5 | al2023-ami-2023.7.20250428.1-kernel-6.1-arm64               | 2025-04-30    |
+| US East      | us-east-1      | x86_64 | ami-0f88e80871fd81e91 | al2023-ami-2023.7.20250428.1-kernel-6.1-x86_64              | 2025-04-30    |
+| US East      | us-east-1      | arm64  | ami-0bc72bd3b8ba0b59d | al2023-ami-2023.7.20250428.1-kernel-6.1-arm64               | 2025-04-30    |
+| US West      | us-west-1      | x86_64 | ami-04fc83311a8d478df | al2023-ami-2023.7.20250428.1-kernel-6.1-x86_64              | 2025-04-30    |
+| US West      | us-west-1      | arm64  | ami-09f613e72bf2c9ec1 | al2023-ami-2023.7.20250428.1-kernel-6.1-arm64               | 2025-04-30    |
 
-> For the latest ECS-HVM AMIs, please re-run the `aws ec2 describe-images` command as needed.
+> For the latest AMIs, please re-run the `aws ec2 describe-images` command as needed.
 ---
 
 ## 🔐 Security Notes
