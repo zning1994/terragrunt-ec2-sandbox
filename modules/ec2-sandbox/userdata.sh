@@ -5,6 +5,7 @@ cat <<'EOF' > /root/sandbox-init.sh
 #!/bin/bash
 # set -eux
 
+mkdir ~/Codes
 echo "📦 正在更新系统..."
 yum update -y
 
@@ -89,8 +90,22 @@ systemctl daemon-reload
 systemctl enable code-server
 systemctl restart code-server
 
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
 
-echo "✅ Sandbox 初始化完成"
+META() {
+  curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+    http://169.254.169.254/latest/meta-data/$1
+}
+
+echo "✅ Sandbox 初始化完成, 实例详细信息如下：
+Instance ID:       $(META instance-id)
+Private IP:        $(META local-ipv4)
+Public IP:         $(META public-ipv4)
+Region:            $(META placement/region)
+Availability Zone: $(META placement/availability-zone)
+Instance Type:     $(META instance-type)
+请通过 http://$(META public-ipv4):8080/?folder=/root/Codes 访问 code-server"
 EOF
 
 chmod +x /root/sandbox-init.sh

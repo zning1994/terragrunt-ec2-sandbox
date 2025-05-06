@@ -124,8 +124,7 @@ This runs Terragrunt to create the EC2 instance and security group.
 - The script is automatically executed once during initialization. Output is saved to `/root/sandbox-init.log`.
 - You can SSH in and manually re-run the initialization if needed:
   ```bash
-  sudo bash /root/sandbox-init.sh | tee /root/sandbox-init.log
-  sudo source /root/.bash_profile
+  sudo bash /root/sandbox-init.sh | tee /root/sandbox-init.log && sudo source /root/.bash_profile
   ```
 - If you want to customize environment setup, edit `modules/ec2-sandbox/userdata.sh` (which writes to `/root/sandbox-init.sh`).
 
