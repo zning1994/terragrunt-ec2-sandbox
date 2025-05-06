@@ -35,6 +35,33 @@ terragrunt-ec2-sandbox/
 
 ---
 
+## 💾 Requirements
+
+Before you begin, make sure you have the following tools installed on your macOS system:
+
+- **make** (build automation tool)
+- **terragrunt** (for managing Terraform configurations)
+- **terraform** (infrastructure as code tool)
+- **awscli** (AWS Command Line Interface)
+
+You can install all of these using Homebrew:
+
+```bash
+brew install make terraform terragrunt awscli
+```
+
+> **Note for macOS users:**
+>
+> When you install GNU make via Homebrew, it is named `gmake` by default. To use it as `make`, add the following to your shell profile (e.g., `~/.zshrc` or `~/.bashrc`):
+>
+> ```bash
+> export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+> ```
+>
+> Then run `source ~/.zshrc` (或 `source ~/.bashrc`) to apply the change. This ensures the `make` command uses GNU make instead of the default BSD make.
+
+If you don't have Homebrew, you can install it from https://brew.sh/
+
 ## 🛠️ Setup Instructions
 
 ### 1️⃣ Clone the Project

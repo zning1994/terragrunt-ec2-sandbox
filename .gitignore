@@ -1,0 +1,36 @@
+# Local environment variables
+.env
+
+# SSH key pairs (never commit private keys)
+sandbox-key
+sandbox-key.pem.pub
+modules/ec2-sandbox/sandbox-key.pem.pub
+
+# Terraform & Terragrunt state
+*.tfstate
+*.tfstate.*
+.terraform/
+.terragrunt-cache/
+crash.log
+
+# OS / Editor files
+.DS_Store
+*.swp
+*.swo
+*.bak
+.idea/
+.vscode/
+
+# Log files
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node modules (if any future use)
+node_modules/
+
+# Output and temp
+*.out
+*.tmp
