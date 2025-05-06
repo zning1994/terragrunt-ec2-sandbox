@@ -1,10 +1,14 @@
 # Local environment variables
 .env
+.env.*
 
-# SSH key pairs (never commit private keys)
+# SSH key files (private & public)
 sandbox-key
-sandbox-key.pem.pub
-modules/ec2-sandbox/sandbox-key.pem.pub
+sandbox-key.pub
+modules/ec2-sandbox/sandbox-key
+modules/ec2-sandbox/sandbox-key.pub
+*.pem
+*.pub
 
 # Terraform & Terragrunt state
 *.tfstate
@@ -34,3 +38,5 @@ node_modules/
 # Output and temp
 *.out
 *.tmp
+
+.terraform.lock.hcl

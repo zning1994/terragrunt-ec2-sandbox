@@ -1,10 +1,11 @@
 locals {
-  region         = "us-east-1"
-  instance_type  = "t3.micro"
-  ami_id         = "ami-0c2b8ca1dad447f8a" # Amazon Linux 2
-  key_name       = "sandbox-key"           # 用你的密钥名字
-  vpc_id         = "vpc-xxxxxxxx"           # 替换成你的 VPC ID
-  my_ip          = "your.public.ip.address/32" # 自己的 IP
+  region         = get_env("AWS_REGION", "us-east-1")
+  instance_type  = get_env("INSTANCE_TYPE", "t3.micro")
+  ami_id         = get_env("AMI_ID", "ami-0c2b8ca1dad447f8a")
+  key_name       = get_env("KEY_NAME", "sandbox-key")
+  vpc_id         = get_env("VPC_ID", "vpc-xxxxxxxx")
+  my_ip          = get_env("MY_IP", "your.public.ip.address/32")
+  profile        = get_env("AWS_PROFILE", "default")
 }
 
 terraform {
@@ -18,4 +19,5 @@ inputs = {
   key_name      = local.key_name
   vpc_id        = local.vpc_id
   my_ip         = local.my_ip
+  profile       = local.profile
 }

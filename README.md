@@ -62,6 +62,24 @@ brew install make terraform terragrunt awscli
 
 If you don't have Homebrew, you can install it from https://brew.sh/
 
+---
+
+**Environment Variables Loading**
+
+This project requires all configuration variables to be available as environment variables. You can use the provided `.env` file:
+
+```bash
+cp .env.example .env
+```
+
+Before running `make up` or any Terragrunt/Terraform command, load variables into your environment:
+
+```bash
+export $(cat .env | grep -v '^#' | xargs)
+```
+
+Or use tools like [`direnv`](https://direnv.net/) or [`dotenv`](https://github.com/motdotla/dotenv) for automatic loading.
+
 ## 🛠️ Setup Instructions
 
 ### 1️⃣ Clone the Project
@@ -91,8 +109,8 @@ make key
 
 Generates:
 
-* `sandbox-key`: your private key
-* `sandbox-key.pem.pub`: public key used in AWS EC2 key pair
+* `sandbox-key`: your private key (never commit to git)
+* `sandbox-key.pub`: public key used in AWS EC2 key pair (auto-ignored by .gitignore)
 
 ### 4️⃣ Launch EC2 Sandbox
 
@@ -101,6 +119,14 @@ make up
 ```
 
 This runs Terragrunt to create the EC2 instance and security group.
+
+- During provisioning, all environment setup commands are written to `/root/sandbox-init.sh` on the EC2 instance.
+- The script is automatically executed once during initialization. Output is saved to `/root/sandbox-init.log`.
+- You can SSH in and manually re-run the initialization if needed:
+  ```bash
+  sudo bash /root/sandbox-init.sh | tee /root/sandbox-init.log
+  ```
+- If you want to customize environment setup, edit `modules/ec2-sandbox/userdata.sh` (which writes to `/root/sandbox-init.sh`).
 
 ### 5️⃣ Connect to Instance
 

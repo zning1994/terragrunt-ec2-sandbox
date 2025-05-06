@@ -21,4 +21,5 @@ fi
 chmod 400 "$KEY_PATH"
 
 echo "🚀 Connecting to $PUBLIC_IP..."
-ssh -i "$KEY_PATH" "$USER@$PUBLIC_IP"
+ssh -t -i "$KEY_PATH" "$USER@$PUBLIC_IP" 'sudo su -'
+# ssh -i "$KEY_PATH" "$USER@$PUBLIC_IP"

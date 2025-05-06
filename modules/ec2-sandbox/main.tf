@@ -1,10 +1,11 @@
 provider "aws" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 resource "aws_key_pair" "sandbox_key" {
   key_name   = var.key_name
-  public_key = file("${path.module}/sandbox-key.pem.pub")  # 本地生成的公钥
+  public_key = file("${path.module}/${var.key_name}.pub")  # 本地生成的公钥
 }
 
 resource "aws_instance" "sandbox" {

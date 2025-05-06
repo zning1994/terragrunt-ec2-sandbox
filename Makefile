@@ -1,3 +1,9 @@
+# 自动加载 .env 环境变量，适配 Terragrunt/Terraform/AWS CLI
+ifneq (,$(wildcard .env))
+  include .env
+  export
+endif
+
 PROJECT_DIR=terragrunt-ec2-sandbox
 KEY_NAME=$(shell grep KEY_NAME .env | cut -d '=' -f2)
 MY_IP=$(shell grep MY_IP .env | cut -d '=' -f2)
@@ -16,15 +22,21 @@ key:
 
 # 2. Deploy EC2 Sandbox
 up:
-	cd $(PROJECT_DIR) && terragrunt init && terragrunt apply -auto-approve
+	@echo "[INFO] Loading environment variables from .env"
+	set -a; [ -f .env ] && . ./.env; set +a; \
+	cd ../$(PROJECT_DIR) && terragrunt init && terragrunt apply -auto-approve
 
 # 3. SSH into Sandbox
 ssh:
+	@echo "[INFO] Loading environment variables from .env"
+	set -a; [ -f .env ] && . ./.env; set +a; \
 	bash connect.sh
 
 # 4. Destroy Sandbox
 destroy:
-	cd $(PROJECT_DIR) && terragrunt destroy -auto-approve
+	@echo "[INFO] Loading environment variables from .env"
+	set -a; [ -f .env ] && . ./.env; set +a; \
+	cd ../$(PROJECT_DIR) && terragrunt destroy -auto-approve
 
 # 5. Clean up generated keys
 clean:
