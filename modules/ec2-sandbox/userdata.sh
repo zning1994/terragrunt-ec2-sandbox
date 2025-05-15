@@ -15,7 +15,9 @@ echo "🔧 安装开发工具和依赖..."
 yum install -y bison git gcc glibc-devel gcc-c++ make \
   zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel \
   libffi-devel xz-devel tk-devel gdbm-devel lzma \
-  libuuid-devel libtirpc-devel findutils
+  libuuid-devel libtirpc-devel findutils \
+  p7zip p7zip-plugins htop
+
 
 echo "⬇️ 安装 nvm..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -114,7 +116,9 @@ Public IP:         $(META public-ipv4)
 Region:            $(META placement/region)
 Availability Zone: $(META placement/availability-zone)
 Instance Type:     $(META instance-type)
-请通过 http://$(META public-ipv4):8080/?folder=/root/Codes 访问 code-server"
+请通过 http://$(META public-ipv4):8080/?folder=/root/Codes 访问 code-server
+当前机器已安装 7z, 请使用如下命令进行解压
+7z x -p'yourpassword' node-test.zip"
 
 EOF
 
